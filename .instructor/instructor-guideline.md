@@ -287,4 +287,48 @@ we can use `System.IO` namespace to read and write files. we can use `File.Write
     }
 ```
 
+---
+
 4.4 Conclusion: in this week, we have learned how to persist data between scene using singleton pattern, and how to persist data between session using PlayerPrefs and JSON file. we also learn how to use file system to read and write files. with these knowledge, you can now save and load data in your game, and make your game more user-friendly.
+
+---
+
+# 5. Challenge
+
+5.1 Add LastTimePlayed into SaveData, and save the last time the user played the game. you can use `System.DateTime` to get the current time, and save it as a string in JSON file. then when load the game, you can parse the string back to DateTime, and show the last time played in UI.
+
+```c#
+[Serializable]
+class SaveData
+{
+    public Color TeamColor;
+    public string LastTimePlayed;
+}
+```
+
+```c#
+    public void SaveColor()
+    {
+        SaveData data = new SaveData();
+        data.TeamColor = TeamColor;
+        data.LastTimePlayed = DateTime.Now.ToString();
+
+        string json = JsonUtility.ToJson(data);
+        string path = Path.Combine(Application.persistentDataPath, "savefile.json");
+        File.WriteAllText(path, json);
+        Debug.Log("Save file path: " + path);
+    }
+
+    public void LoadColor()
+    {
+        string path = Path.Combine(Application.persistentDataPath, "savefile.json");
+        if (File.Exists(path))
+        {
+            string json = File.ReadAllText(path);
+            SaveData data = JsonUtility.FromJson<SaveData>(json);
+            TeamColor = data.TeamColor;
+        }
+    }
+```
+
+and send saveFile.json file to instructor, and show the last time played in UI. you can create a new UI Text in Menu scene to show the last time played. and update the text when load the game.
