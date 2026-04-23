@@ -332,3 +332,7 @@ class SaveData
 ```
 
 and send saveFile.json file to instructor, and show the last time played in UI. you can create a new UI Text in Menu scene to show the last time played. and update the text when load the game.
+
+---
+
+5.2 Thinking question: Lets see the real world game save system, it need to manage versioning. the SaveData structure may change when you update your game, and you need to make sure that the old save data can still be loaded in the new version of the game. how do you manage versioning in your save system? how do you handle the case when the save data structure is changed, and the old save data cannot be loaded in the new version of the game?

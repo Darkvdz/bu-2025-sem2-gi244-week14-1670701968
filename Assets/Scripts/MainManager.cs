@@ -1,3 +1,4 @@
+using System;
 using System.IO;
 using System.Runtime.InteropServices;
 using UnityEngine;
@@ -27,7 +28,11 @@ public class MainManager : MonoBehaviour
     [System.Serializable]
     class SaveData
     {
+        // 3.2
         public Color TeamColor;
+
+        // 5.1
+        public string LastTimePlayed;
     }
 
     public void SaveColor()
@@ -55,8 +60,18 @@ public class MainManager : MonoBehaviour
         // File.WriteAllText(path, json);
 
         // 4.3
+        // SaveData data = new SaveData();
+        // data.TeamColor = TeamColor;
+
+        // string json = JsonUtility.ToJson(data);
+        // string path = Path.Combine(Application.persistentDataPath, "savefile.json");
+        // File.WriteAllText(path, json);
+        // Debug.Log("Save file path: " + path);
+
+        // 5.1
         SaveData data = new SaveData();
         data.TeamColor = TeamColor;
+        data.LastTimePlayed = DateTime.Now.ToString();
 
         string json = JsonUtility.ToJson(data);
         string path = Path.Combine(Application.persistentDataPath, "savefile.json");
@@ -97,5 +112,6 @@ public class MainManager : MonoBehaviour
             SaveData data = JsonUtility.FromJson<SaveData>(json);
             TeamColor = data.TeamColor;
         }
+
     }
 }
