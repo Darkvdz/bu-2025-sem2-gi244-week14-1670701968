@@ -67,10 +67,13 @@ public class MainManager : MonoBehaviour
         string fileName = "saveData.json";
         string fullPath = Path.Combine(p, fileName);
 
-        string j = File.ReadAllText(fullPath);
-        Debug.Log(j);
-        SaveData data = JsonUtility.FromJson<SaveData>(j);
-        TeamColor = data.TeamColor;
+        if (File.Exists(fullPath))
+        {
+            string j = File.ReadAllText(fullPath);
+            Debug.Log(j);
+            SaveData data = JsonUtility.FromJson<SaveData>(j);
+            TeamColor = data.TeamColor;
+        }
 
         //string j = PlayerPrefs.GetString("saveData");
         //Debug.Log(j);
