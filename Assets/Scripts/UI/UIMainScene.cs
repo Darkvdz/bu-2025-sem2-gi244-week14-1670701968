@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class UIMainScene : MonoBehaviour
 {
@@ -21,13 +22,27 @@ public class UIMainScene : MonoBehaviour
     protected IUIInfoContent m_CurrentContent;
     protected List<Building.InventoryEntry> m_ContentBuffer = new List<Building.InventoryEntry>();
 
+    public Button exitButton;
+
 
     private void Awake()
     {
         Instance = this;
         InfoPopup.gameObject.SetActive(false);
         ResourceDB.Init();
+
+        exitButton.onClick.AddListener(() =>
+        {
+            SceneManager.LoadScene("Menu");
+        });
+
+        //exitButton.onClick.AddListener(onExitClicked); //Default Method
     }
+
+    //void onExitClicked()
+    //{
+    //    SceneManager.LoadScene("Menu");
+    //}
 
     private void OnDestroy()
     {
